@@ -1,5 +1,6 @@
 package GraphComponent;
 
+import java.awt.*;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,30 +9,28 @@ public class MyPanel extends JPanel implements Runnable{
     private String title;
     private JLabel titleOfPanel = new JLabel();
     private Canva canva;  
-    private Axi x = new Axi(false), y = new Axi(true);
     
 
     public MyPanel(String title, int ampitude, int frequency, int fullFilment) {
         this.title = title;
-        canva = new Canva(ampitude, frequency, fullFilment);  
-        initlizePanel();
+        initlizePanel(ampitude, frequency, fullFilment);
         Thread thread = new Thread(this);
         thread.start();
         
     }
 
     public void run() {
-        setVisible(false);
-        canva.repaint();
-        setVisible(true);     
+        while (true) {
+            canva.calculateNextPoints();
+            canva.repaint();
+        }
     }
     
-    private void initlizePanel() {
+    private void initlizePanel(int amp, int fre, int fullFil) {
         setSize(300, 500);;
         setLayout(new BorderLayout());
         setGraphTitle();
-        add(canva, BorderLayout.CENTER);
-        setAxis();
+        setCanva(amp, fre, fullFil);
     }
 
     private void setGraphTitle() {
@@ -40,9 +39,10 @@ public class MyPanel extends JPanel implements Runnable{
        titleOfPanel.setAlignmentY(CENTER_ALIGNMENT);
        add(titleOfPanel, BorderLayout.NORTH);
     }
-        
-    private void setAxis() {
-        add(x, BorderLayout.WEST);
-        add(y, BorderLayout.SOUTH);
+
+    private void setCanva(int amp, int fre, int fullFil) {
+        canva = new Canva(amp, fre, fullFil);
+        canva.setBackground(Color.LIGHT_GRAY);
+        add(canva, BorderLayout.CENTER);
     }
 }
