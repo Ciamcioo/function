@@ -30,8 +30,8 @@ public class App {
     }
 
     private void functionsInitalization() {
-        myPanel[0] = new MyPanel("Function 1", 2, 1, 50);
-        myPanel[1] = new MyPanel("Function 2", 3, 2, 20);
+        myPanel[0] = new MyPanel("Function 1", 200, 5, 50);
+        myPanel[1] = new MyPanel("Function 2", 300, 10, 20);
         myPanel[2] = new MyPanel("Result Function", 0, 0, 0);
         for (int i = 0; i < 3; i++)
             appFrame.add(myPanel[i]);     

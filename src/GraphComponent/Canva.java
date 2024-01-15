@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 public class Canva extends JPanel{
     private int ampitude, frequency, fullFilment;
     private boolean functionState = false;
-    private Point previousePoint = new Point(0,400), currentPoint = new Point (100, 400);
+    private Point previousePoint = new Point(0,400), currentPoint;
 
     public Canva(int amp, int fre, int fullFil) {
         ampitude = amp;
         frequency = fre;
         fullFilment = fullFil;
+        currentPoint = new Point(previousePoint.x + (fullFilment/100) * frequency * 100, previousePoint.y);
     }
     public void calculateProblem() {
         previousePoint = currentPoint;
@@ -40,8 +41,22 @@ public class Canva extends JPanel{
     }
 
     private void drawAxics(Graphics g) {
-        g.drawLine(0,getHeight()/4*3, getWidth()-5, getHeight()/4*3); 
-        g.drawLine(getWidth()/2, 5, getWidth()/2,getHeight());
+        g.drawLine(0,getHeight()/2, getWidth()-10, getHeight()/2); 
+        g.drawLine(getWidth()/2, 10, getWidth()/2,getHeight());
+        setPoints(g);
+    }
+
+    private void setPoints(Graphics g) {
+        for (int x = 0; x <= getWidth() - 10; x += 20) 
+           drawPoint(g, x, getHeight()/2); 
+        for (int y = 10; y <= getHeight(); y += 20) 
+            drawPoint(g, getWidth()/2, y);
+         
+    }
+    
+    private void drawPoint(Graphics g, int x, int y) {
+        g.setColor(Color.RED);
+        g.fillRect(x - 2, y - 2, 4, 4); 
     }
 
     @Override
