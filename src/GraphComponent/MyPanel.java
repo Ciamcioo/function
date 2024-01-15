@@ -20,8 +20,9 @@ public class MyPanel extends JPanel implements Runnable{
     }
 
     public void run() {
+        while(true) {
             canva.repaint();
-            // canva.calculateNextPoints();
+        }
     }
     
     private void initlizePanel(int amp, int fre, int fullFil) {
